@@ -45,3 +45,19 @@
 #define ASSUME_ALIGNED(ptr, align)
 #define VECTORIZE_FUNCTION
 #endif
+
+#if defined(__GNUC__)
+#define likely(x) __builtin_expect((x), 1)
+#define unlikely(x) __builtin_expect((x), 0)
+#else
+#warning No likely/unlikely
+#define likely(x) (x)
+#define unlikely(x) (x)
+#endif
+
+#if defined(__GNUC__)
+#define UNREACHABLE() __builtin_unreachable()
+#else
+#warning no unreachable
+#define UNREACHABLE()
+#endif
